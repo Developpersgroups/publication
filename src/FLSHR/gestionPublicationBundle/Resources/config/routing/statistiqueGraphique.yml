@@ -1,0 +1,25 @@
+#statistique quotidienne graphique
+gestion_publication_submit_stats_quotidien_graphique:
+        pattern:  /submitstatsquotidiengraphique
+        defaults: { _controller: GestionPublicationBundle:StatistiqueGraphique:submitStatsQuotidienGraphique } 
+
+#statistique hebdomadaire graphique        
+gestion_publication_submit_stats_hebdomadaire_graphique:
+        pattern:  /submitstatshebdomadairegraphique
+        defaults: { _controller: GestionPublicationBundle:StatistiqueGraphique:submitStatsHebdomadaireGraphique } 
+
+#statistique mensuelle graphique        
+gestion_publication_submit_stats_mensuel_graphique:
+        pattern:  /submitstatsmensuelgraphique
+        defaults: { _controller: GestionPublicationBundle:StatistiqueGraphique:submitStatsMensuelGraphique }  
+
+#statistique annuelle graphique 
+gestion_publication_submit_stats_annuel_graphique:
+        pattern:  /submitstatsannuelgraphique
+        defaults: { _controller: GestionPublicationBundle:StatistiqueGraphique:submitStatsAnnuelGraphique }    
+
+# statistique graphique        
+gestion_publication_stats_graph:
+        pattern:  /Graphique
+        defaults: { _controller: GestionPublicationBundle:StatistiqueGraphique:statsGraphique }
+ 

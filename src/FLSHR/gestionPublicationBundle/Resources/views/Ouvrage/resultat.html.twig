@@ -1,0 +1,119 @@
+<ul class="hProductItems clearfix" >
+<table width="100%"><tr>
+                                                            {% set newline=0 %}
+
+                                                            {% for entity in entities %}
+                <td style="display: inline-block;margin-left:40px;margin-bottom: 3px;">
+                    <form action="{{ path('gestion_publication_add_panier', { 'id': entity.id }) }}" method="post" id="form">
+                        <div class="thumbnail">
+										{% if entity.photo=="" %}
+                                <a href="{{ asset('images/livre.jpg') }}?lightbox[width]=383&lightbox[height]=476"  
+                                   title="Titre : {{ entity.titre }}<br>
+                                   Auteur : {{ entity.auteur }}<br>
+                                   Editeur : {{ entity.editeur }}<br>
+                                   Serie : {{ entity.serie }}<br>
+                                   Edition : {{ entity.edition }}<br>
+                                   Prix : {{ entity.prix }}<br>
+                                   ISBN : {{ entity.isbn }}<br>
+                                   ISSN : {{ entity.issn }}<br>
+                                   Impression : {{ entity.impression }}"
+                                   onmouseover="this.setAttribute('org_title', this.title);
+                                           this.title = '{{ entity.titre }}';" 
+                                   onmouseout="this.title = this.getAttribute('org_title');" 
+                                   onclick="this.title = this.getAttribute('org_title');"  
+                                   class="lightbox" ><img src="{{ asset('images/livre.jpg') }}" alt="" style="width:143px;height:192px"></a>
+                                                                                {% else %}
+                                <a href="{{ asset(entity.webPath) }}?lightbox[width]=383&lightbox[height]=476"  
+                                   title="Titre : {{ entity.titre }}<br>
+                                   Auteur : {{ entity.auteur }}<br>
+                                   Editeur : {{ entity.editeur }}<br>
+                                   Serie : {{ entity.serie }}<br>
+                                   Edition : {{ entity.edition }}<br>
+                                   Prix : {{ entity.prix }}<br>
+                                   ISBN : {{ entity.isbn }}<br>
+                                   ISSN : {{ entity.issn }}<br>
+                                   Impression : {{ entity.impression }}"
+                                   onmouseover="this.setAttribute('org_title', this.title);
+                                           this.title = '{{ entity.titre }}';" 
+                                   onmouseout="this.title = this.getAttribute('org_title');" 
+                                   onclick="this.title = this.getAttribute('org_title');" 
+                                   class="lightbox" ><img src="{{ asset(entity.webPath) }}" alt="" style="width:143px;height:192px"></a>
+                                                                                {% endif %} 
+                            </div>
+
+                            <div class="thumbSetting">
+                                <div class="thumbTitle" style="height:60px;">
+                                    <a href="#" class="invarseColor">
+                                                                                            {% if entity.titre|length > 50 %}
+												{{ entity.titre|slice(0, 49) }} ...
+                                                                                              {% else %}
+                                                                                             {{ entity.titre }}
+                                                                                            {% endif %}
+                                        </a>
+                                    </div>
+                                    <div class="thumbPrice">
+                                        <span>{{ entity.prix }} Dhs</span>
+                                    </div>
+                                    <div class="quantite">
+                                                                                    {% set disabled="" %}
+                                                                                    {% set btn="btn-primary" %}
+                                                                                    {% if entity.qutestocke <= 10 %}
+                                                                                         {% set disabled="disabled" %} 
+                                                                                         {% set btn="btn-danger" %}
+                                                                                    {% endif %}  
+                                            <select name="quantite" {{ disabled }} >
+                                                                                   {% for i in 1..entity.qutestocke-10 %}
+                                                    <option  value="{{ i }}"> {{ i }}</option>
+                                                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                            <div >
+                                                <button {{ disabled }}  type="submit" class="btn {{ btn }}"><i class="icon-white icon-shopping-cart"></i> Ajouter au panier</button>
+                                            </div>
+                                        </div>
+                                        <hr style="color:#8C898A;background-color:#8C898A;height: 5px;">
+                                    </form>  
+                                </td>
+                                                        {% set newline= newline+1 %}
+                                                        {% if newline==4 %}
+                                                        {% set newline=0 %}
+                            </tr><tr>
+                                                                        {% endif %}
+                                                     {% endfor %}
+                            </table>
+                            {% if  page != 0 %}
+                            <div class="pagination" style="width:900px;">
+                                <ul>
+                          {# On utilise la fonction range(a, b) qui crée un tableau de valeurs entre a et b #}
+                          {% for p in range(1, nombrePage) %}
+                                        <li{% if p == page %} class="active"{% endif %}>
+                                            <a id="pag{{ p }}">{{ p }}</a>
+                                        </li>
+                          {% endfor %}
+                                    </ul>
+                                </div>
+
+
+<script type="text/javascript" src="{{ asset('js/jquery1.8.3.min.js') }}"></script>
+<script type="text/javascript">
+    
+        $(document).ready(function() {
+            $("#loader").hide(); 
+            {% for p in range(1, nombrePage) %}
+$('#pag{{ p }}').click(function() {
+$("#loading").show();
+$('#reponse').hide();   
+$.ajax({type: 'POST',
+                url: "{{ path('gestion_publication_liste_ouvrage', {'page': p}) }}",
+                data: $('#form').serialize(),
+                success: function(data) {
+                 $("#loading").fadeOut();            
+                 $('#reponse').hide().html(data).fadeIn();
+                }});        });
+        {% endfor %}
+       
+}); 
+</script>
+                            {% endif %}
+</ul>                            
+

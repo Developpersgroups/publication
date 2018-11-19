@@ -1,0 +1,116 @@
+{% extends 'GestionPublicationBundle::gestionPublication/base.html.twig' %}
+{% block title %}FLSHR Gestion des publications | Factures{% endblock %} 
+{% block entete %} {% endblock %} 
+{% block sidebar %} {% endblock %} 
+{% block content %}
+{% set prixTotal = 0 %}
+{% set produits  = 0 %}    
+{% for entity in entities.com.detailcomande %}
+{% set produits=produits + entity.qtecommande %}  
+{% set prixTotal= (prixTotal + (entity.qtecommande * entity.ouvrage.prix))  %} 
+{% endfor %}
+<br>
+<style>
+   /*modifier l'apparence des scrollbars de tout le forum*/
+   ::-webkit-scrollbar { 
+   width: 5px; /*largeur de la scrollbar verticale*/
+   height: 5px; /*hauteur de la scrollbar horizontale*/
+   background-color: #000000;}
+   ::-webkit-scrollbar-track { 
+   background-color: #FFFFFF; /*couleur du fond de la scrollbar*/}
+   ::-webkit-scrollbar-thumb { /*la petite bande qui monte/descend*/
+   background-color: #000000 /*couleur de l'ascenseur*/;
+   border-radius: 15px;
+   -moz-border-radius: 15px;
+   -webkit-border-radius: 15px;}
+</style>
+<div style="padding:4px;">
+   <div class="row-fluid">
+      <h4 style="margin-top:-6px">Facture</h4>
+      <table class="responsive table table-bordered">
+         <thead>
+            <tr>
+               <th>N° Facture</th>
+               <th>Date de facture</th>
+               <th>Vendeur</th>
+            </tr>
+         </thead>
+         <tbody>
+            <tr>
+               <td>00{{ entities.id }}</td>
+               <td>{{ entities.datefacture|date('Y-m-d H:m:s') }}</td>
+               <td>{{ entities.com.user }}</td>
+            </tr>
+         </tbody>
+      </table>
+   </div>
+   <div class="row-fluid">
+      <h4 style="margin-top:-6px">Commande</h4>
+      <table class="responsive table table-bordered">
+         <thead>
+            <tr>
+               <th>N° commande</th>
+               <th>Date de commande</th>
+               <th>Réduction</th>
+               <th>Type de client</th>
+            </tr>
+         </thead>
+         <tbody>
+            <tr>
+               <td>00{{ entities.com.id }}</td>
+               <td>{{ entities.com.datecommande|date('Y-m-d') }}</td>
+               {% if entities.com.reduction==100 %}
+               <td>don</td>
+               {% else %}
+               <td>{{ entities.com.reduction }}%</td>
+               {% endif %}
+               <td>{{ entities.com.uti.typeutilisateur }}</td>
+            </tr>
+         </tbody>
+      </table>
+   </div>
+   <h4 style="margin-top:-6px">Détails de commande</h4>
+   <table class="responsive table table-bordered">
+      <thead>
+         <tr>
+            <th>Titre</th>
+            <th>Auteur</th>
+            <th>Prix</th>
+            <th>Quantité</th>
+         </tr>
+      </thead>
+      <tbody>
+         {% for entity in entities.com.detailcomande %}
+         <tr>
+            <td>{{ entity.ouvrage.titre }}</td>
+            <td>{{ entity.ouvrage.auteur }}</td>
+            <td>{{ entity.ouvrage.prix }} dhs</td>
+            <td>{{ entity.qtecommande }}</td>
+         </tr>
+         {% endfor %}
+      </tbody>
+   </table>
+   <h4 style="margin-top:-6px">Détails de facture</h4>
+   <table class="responsive table table-bordered">
+      <thead>
+         <tr>
+            <th>Prix HT</th>
+            <th>Prix TTC</th>
+            <th>Prix après réduction</th>
+            <th>Prix total</th>
+         </tr>
+      </thead>
+      <tbody>
+         <tr>
+            <td>{{ prixTotal }} dhs</td>
+            <td>{{ prixTotal + (prixTotal*0.2) }} dhs</td>
+            <td>{{ ((prixTotal+(prixTotal*0.2))- ((prixTotal+(prixTotal*0.2)) * (entities.com.reduction/100))) }} dhs</td>
+            <td>{{ ((prixTotal+(prixTotal*0.2))- ((prixTotal+(prixTotal*0.2)) * (entities.com.reduction/100))) }} dhs</td>
+         </tr>
+      </tbody>
+   </table>
+   <div style="float:right;"> 
+      <a target="_blink" href="{{ path('gestion_publication_imprimer_factures', {'id': entities.id }) }}" class="btn btn-warning"><i class="icon-white icon-print"></i> Imprimer</a> 
+   </div>
+</div>
+{% endblock %}

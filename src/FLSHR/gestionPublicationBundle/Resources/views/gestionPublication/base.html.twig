@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>{% block title %}Reda & Najib stage{% endblock %}</title>
+    <!-- Mobile Specific Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% block stylesheets %}
+    <!-- Les styles -->
+    <!--[if lt IE 9]>
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400" rel="stylesheet" type="text/css" />
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:700" rel="stylesheet" type="text/css" />
+    <link href="http://fonts.googleapis.com/css?family=Droid+Sans:400" rel="stylesheet" type="text/css" />
+    <link href="http://fonts.googleapis.com/css?family=Droid+Sans:700" rel="stylesheet" type="text/css" />
+    <![endif]-->
+    <link href="{{ asset('css/bootstrap/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('css/icons.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('plugins/misc/qtip/jquery.qtip.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('css/main.css') }}" rel="stylesheet" type="text/css" /> 
+    <link href="{{ asset('css/produits.css') }}" rel="stylesheet" type="text/css" /> 
+    <link href="{{ asset('js/lightbox/themes/default/jquery.lightbox.css') }}" rel="stylesheet" type="text/css" />
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ asset('images/apple-touch-icon-144-precomposed.png') }}" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ asset('images/apple-touch-icon-114-precomposed.png') }}" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ asset('images/apple-touch-icon-72-precomposed.png') }}" />
+    <link rel="apple-touch-icon-precomposed" href="{{ asset('images/apple-touch-icon-57-precomposed.png') }}" />
+    {% endblock %}
+    </head>
+    <body>
+    <div id="qLoverlay"></div>
+    <div id="qLbar"></div>
+{% block entete %}
+    <div id="header">
+        <div class="navbar">
+            <div class="navbar-inner">
+              <div class="container-fluid">
+                <img src="{{ asset('images/top-logo.png') }}" border="0" alt="Faculté des Lettres et des Sciences Humaines de Rabat" />
+               {%block connection %}
+                {% endblock %}
+              </div>
+            </div>
+          </div>
+
+    </div>
+{% endblock %}
+{%block wrapper%}
+    <div id="wrapper">
+{% block sidebar %}
+        <div id="sidebarbg"></div>
+        <div id="sidebar" style="padding-top:103px;">
+{%block recherche %}
+            <div class="resBtnSearch">
+                        <a href="#"><span class="icon16 icomoon-icon-search-3"></span></a>
+                    </div>
+
+                    <div class="search">
+
+                        <form id="searchform">
+                            <input type="text"  id="tipue_search_input" class="top-search" placeholder="Rechercher ..." />
+                            <input type="submit" id="tipue_search_button" class="search-btn" value=""/>
+                        </form>
+                
+                    </div>
+{% endblock %}
+{% block navigation %}
+            <div class="sidenav">
+
+                <div class="sidebar-widget" style="margin: -1px 0 0 0;">
+                    <h5 class="title" style="margin-bottom:0">Navigation</h5>
+                </div>
+
+                <div class="mainnav">
+                    <ul>
+                        <li><a href="{{ path('gestion_publication_accueil') }}"><span class="icon16 icomoon-icon-home-8"></span>Accueil</a></li>
+                        <li>
+                            <a href="#"><span class="icon16  icomoon-icon-books"></span>Ouvrages</a>
+                            <ul class="sub">
+                                <li><a href="{{ path('ouvrage_new') }}"><span class="icon16 icomoon-icon-plus-2"></span>Nouvel ouvrage</a></li>
+                                <li><a href="{{ path('ouvrage_afficher'  , {'page': 1}) }}" ><span class="icon16 minia-icon-list-4"></span>Liste des ouvrages{% block notification %}{% endblock %}</a></li>
+                                <li><a href="{{ path('gestion_publication_afficher_archives') }}"><span class="icon16  entypo-icon-archive"></span>Archives</a></li>
+                            </ul>
+                        </li>
+                            {% if is_granted('ROLE_SUPER_ADMIN') %}
+                             <li>
+                            <a href="#"><span class="icon16  icomoon-icon-stats-up"></span>Statistiques</a>
+                            <ul class="sub">
+                                <li><a href="{{ path('gestion_publication_stats_graph') }}"><span class="icon16  icomoon-icon-graph"></span>Statistiques graphiques</a></li>
+                                <li><a href="{{ path('gestion_publication_stats_simple') }}" ><span class="icon16  cut-icon-grid"></span>Statistiques simple</a></li>
+                            </ul>
+                            </li>
+                            {% endif %}
+                            <li>
+                            <a href="#"><span class="icon16   icomoon-icon-cart"></span>Commandes</a>
+                            <ul class="sub">
+                                <li><a href="{{ path('gestion_publication_commandes' ,{'page': 1}) }}"><span class="icon16  icomoon-icon-coin"></span>Commandes payantes</a></li>
+                                <li><a href="{{ path('gestion_publication_commandesDon' ,{'page': 1} ) }}"><span class="icon16 icomoon-icon-gift"></span>Commandes Don</a></li>
+                            </ul>
+                            </li>
+			<li><a href="{{ path('gestion_publication_facture', {'page': 1}) }}"><span class="icon16 icomoon-icon-cart"></span>Factures</a></li>
+                        <li><a href="{{ path('fos_user_profile_show') }}"><span class="icon16  icomoon-icon-user-2"></span>Mon compte</a></li>
+                    </ul>
+                </div>
+            </div>
+{% endblock %}
+        </div>
+{% endblock %}
+        {% block content %}{% endblock %}
+            </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript" src="{{ asset('js/jquery1.8.3.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/bootstrap/bootstrap.js') }}"></script>  
+    <script type="text/javascript" src="{{ asset('js/jquery.cookie.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.mousewheel.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('plugins/charts/sparkline/jquery.sparkline.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('plugins/misc/qtip/jquery.qtip.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('plugins/misc/totop/jquery.ui.totop.min.js') }}"></script> 
+    <script type="text/javascript" src="{{ asset('plugins/misc/search/tipuesearch_set.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('plugins/misc/search/tipuesearch_data.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('plugins/misc/search/tipuesearch.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('plugins/fix/ios-fix/ios-orientationchange-fix.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery1.9.2.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('plugins/fix/touch-punch/jquery.ui.touch-punch.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/lightbox/jquery.lightbox.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/empty.js') }}"></script>
+    {% endblock %}
+    {% block body %} 
+
+    {% endblock %}
+    </body>
+</html>

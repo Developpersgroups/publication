@@ -1,0 +1,56 @@
+{% extends 'GestionPublicationBundle::gestionPublication/base.html.twig' %}
+{% block title %}FLSHR Gestion des publications | Ouvrages{% endblock %} 
+{% block entete %} {% endblock %} 
+{% block sidebar %} {% endblock %} 
+{% block content %}
+<style>
+        /*modifier l'apparence des scrollbars de tout le forum*/
+        ::-webkit-scrollbar { 
+            width: 5px; /*largeur de la scrollbar verticale*/
+            height: 5px; /*hauteur de la scrollbar horizontale*/
+            background-color: #000000;}
+
+        ::-webkit-scrollbar-track { 
+            background-color: #FFFFFF; /*couleur du fond de la scrollbar*/}
+
+        ::-webkit-scrollbar-thumb { /*la petite bande qui monte/descend*/
+            background-color: #000000 /*couleur de l'ascenseur*/;
+            border-radius: 15px;
+            -moz-border-radius: 15px;
+            -webkit-border-radius: 15px;}
+        </style>
+        <div style="padding:4px;">
+        <div class="row-fluid">
+            <table class="responsive table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Titre</th>
+                        <th>Auteur</th>
+                        <th>Edition</th>
+                        <th>ISBN</th>
+                        <th>ISSN</th>
+                        <th>Prix</th>
+                    </tr>
+                </thead>
+                <tbody>
+                         {% for entity in entities %}
+
+                             {% if entity.qutestocke <= 10 and entity.etat!="archive" %}
+                        <tr>
+                            <td>{{ entity.titre }}</td>
+                            <td>{{ entity.auteur }}</td>
+                            <td>{{ entity.edition }}</td>
+                            <td>{{ entity.isbn }}</td>
+                            <td>{{ entity.issn }}</td>
+                            <td>{{ entity.prix }} dhs</td>
+
+                        </tr>
+                                   {% endif %}
+
+                                  {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>                                    
+{% endblock %}
+

@@ -1,0 +1,187 @@
+{% extends 'GestionPublicationBundle::gestionPublication/base.html.twig' %}
+{% block title %}FLSHR Gestion des publications | Nouvel Ouvrage{% endblock %} 
+{%block connection %}
+<div style="float:right;padding-top:20px">
+<ul class="nav">
+<li><a href="{{ path('fos_user_security_logout') }}"><span class="icon16 icomoon-icon-exit"></span>Se déconnecter</a></li>
+</ul>          
+</div>
+{% endblock %}
+
+{% block content %}
+<div id="content" class="clearfix">
+   <div class="contentwrapper">
+      <!--Content wrapper-->
+      <div class="heading">
+         <h3>Nouvel ouvrage</h3>
+         <div class="cmd">
+            
+         </div>
+      </div>
+       <form class="form-horizontal"  action="{{ path('ouvrage_create') }}"  {{ form_enctype(form) }}  method="post">
+      <div class="row-fluid">
+         <h2>remplir les champs pour ajouter un ouvrage ..</h2>
+         <div class="box" >
+            <div class="title">
+               <h4>
+                  <span class="icon16 icomoon-icon-plus-2">  Nouvel ouvrage</span>
+               </h4>
+            </div>
+            <div class="content" >
+              
+               <div class="form-row row-fluid" style="margin-left:-80px;">
+                  <div class="span12">
+                     <div class="row-fluid">
+                        {{ form_label(form.titre , form.titre , 
+                        { 'label_attr': {'class': 'form-label span3'} }) }} 
+                        {{ form_widget(form.titre ,{ 'attr': { 'class':'span9'}} )}} 
+                     </div>
+                  </div>
+               </div>
+               <div class="form-row row-fluid" style="margin-left:-80px;">
+                  <div class="span12">
+                     <div class="row-fluid">
+                        {{ form_label(form.auteur , form.auteur , 
+                        { 'label_attr': {'class': 'form-label span3'} }) }} 
+                        {{ form_widget(form.auteur ,{ 'attr': { 'class':'span9'}} )}} 
+                     </div>
+                  </div>
+               </div>
+               <div class="form-row row-fluid" style="margin-left:-80px;">
+                  <div class="span12">
+                     <div class="row-fluid">
+                        {{ form_label(form.editeur , form.editeur , 
+                        { 'label_attr': {'class': 'form-label span3'} }) }} 
+                        {{ form_widget(form.editeur ,{ 'attr': { 'class':'span9' ,  'value':'Faculté des lettres et sciences humaines' }} )}} 
+                     </div>
+                  </div>
+               </div>
+               <div class="form-row row-fluid" style="margin-left:-80px;">
+                  <div class="span12">
+                     <div class="row-fluid">
+                        {{ form_label(form.serie , form.serie , 
+                        { 'label_attr': {'class': 'form-label span3'} }) }} 
+                        {{ form_widget(form.serie ,{ 'attr': { 'class':'span9'}} )}} 
+                     </div>
+                  </div>
+               </div>
+               <div class="form-row row-fluid" style="margin-left:-80px;">
+                  <div class="span12">
+                     <div class="row-fluid">
+                        {{ form_label(form.impression , form.impression , 
+                        { 'label_attr': {'class': 'form-label span3'} }) }} 
+                        {{ form_widget(form.impression ,{ 'attr': { 'class':'span9'}} )}} 
+                     </div>
+                  </div>
+               </div>
+               <div class="form-row row-fluid" style="margin-left:-80px;">
+                  <div class="span12">
+                     <div class="row-fluid">
+                        {{ form_label(form.depotLegal , form.depotLegal , 
+                        { 'label_attr': {'class': 'form-label span3'} }) }} 
+                        {{ form_widget(form.depotLegal ,{ 'attr': { 'class':'span9'}} )}} 
+                     </div>
+                  </div>
+               </div>
+               <div class="form-row row-fluid" style="margin-left:-80px;">
+                  <div class="span12">
+                     <div class="row-fluid">
+                        {{ form_label(form.isbn , form.isbn , 
+                        { 'label_attr': {'class': 'form-label span3'} }) }} 
+                        {{ form_widget(form.isbn ,{ 'attr': { 'class':'span9'}} )}} 
+                     <div class="error">
+                        {{ form_errors(form.isbn ,{ 'attr': { 'class':'span9'}} )}} 
+                     </div> 
+                     </div>
+                         
+                  </div>
+                     
+               </div>
+               <div class="form-row row-fluid" style="margin-left:-80px;">
+                  <div class="span12">
+                     <div class="row-fluid">
+                        {{ form_label(form.issn , form.issn , 
+                        { 'label_attr': {'class': 'form-label span3'} }) }} 
+                        {{ form_widget(form.issn ,{ 'attr': { 'class':'span9'}} )}} 
+                     <div class="error">
+                        {{ form_errors(form.issn ,{ 'attr': { 'class':'span9'}} )}} 
+                     </div> 
+                     </div>
+                          
+                         
+                  </div>
+               </div>
+               <div class="form-row row-fluid" style="margin-left:-80px;">
+                  <div class="span12">
+                     <div class="row-fluid">
+                        {{ form_label(form.edition , form.edition , 
+                        { 'label_attr': {'class': 'form-label span3'} }) }} 
+                        {{ form_widget(form.edition ,{ 'attr': { 'class':'span9'}} )}} 
+                     </div>
+                  </div>
+               </div>
+               <div class="form-row row-fluid" style="margin-left:-80px;">
+                  <div class="span12">
+                     <div class="row-fluid">
+                        {{ form_label(form.prix , form.prix , 
+                        { 'label_attr': {'class': 'form-label span3'} }) }} 
+                        {{ form_widget(form.prix ,{ 'attr': { 'class':'span9'}} )}} 
+                     <div class="error">
+                        {{ form_errors(form.prix ,{ 'attr': { 'class':'span9'}} )}} 
+                     </div> 
+                     </div>
+                         
+                  </div>
+               </div>
+               <div class="form-row row-fluid" style="margin-left:-80px;">
+                  <div class="span12">
+                     <div class="row-fluid">
+                        {{ form_label(form.qutestocke , form.qutestocke , 
+                        { 'label_attr': {'class': 'form-label span3'} }) }} 
+                        {{ form_widget(form.qutestocke ,{ 'attr': { 'class':'span9'}} )}} 
+                    <div class="error">
+                        {{ form_errors(form.qutestocke ,{ 'attr': { 'class':'span9'}} )}} 
+                     </div> 
+                     </div>
+                         
+                  </div>
+               </div>
+               <div class="form-row row-fluid" style="margin-left:-80px;">
+                  <div class="span12">
+                     <div class="row-fluid">
+                        {{ form_label(form.file , form.file , 
+                        { 'label_attr': {'class': 'form-label span3'} }) }} 
+                        {{ form_widget(form.file ,{ 'attr': { 'class':'span9'}} )}} 
+                     </div>
+                  </div>
+               </div>
+               <div class="form-row row-fluid" style="margin-left:-80px;">
+                  <div class="span12">
+                     <div class="row-fluid">
+                        {{ form_label(form.descrption , form.descrption , 
+                        { 'label_attr': {'class': 'form-label span3'} }) }} 
+                        {{ form_widget(form.descrption ,{ 'attr': { 'class':'span9'}} )}} 
+                     </div>
+                  </div>
+               </div>
+               <div class="naissance-row row-fluid" style="margin-left:-80px;">
+                  <div class="span12">
+                     <div class="row-fluid">
+                        {{ form_label(form.dateentree , 'Date d\'entrée' , 
+                        { 'label_attr': {'class': 'form-label span3'} }) }} 
+                        {{ form_widget(form.dateentree ,{ 'attr': { 'class':'span9'}} )}} 
+                     </div>
+                  </div>
+               </div>
+                 {{ form_rest(form) }}
+            </div>
+         </div>
+         <div style="float:right;">
+            <button type="submit"  class="btn btn-primary"><i class="icon-white icon-plus"></i> Ajouter</button>
+            <button type="reset"  class="btn"><i class="icon-repeat"></i> Réinitialiser</button>
+         </div>
+      </div>
+      </form>
+   </div>
+</div>
+{% endblock %}

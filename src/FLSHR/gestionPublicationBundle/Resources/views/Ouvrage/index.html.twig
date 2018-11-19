@@ -1,0 +1,112 @@
+{% extends 'GestionPublicationBundle::gestionPublication/base.html.twig' %}
+{% block title %}FLSHR Gestion des publications{% endblock %}
+{% block sidebar %} {% endblock %}
+{%block connection %}
+<div style="float:right;padding-top:20px">
+    <ul class="nav">
+        <li><a href="{{ path('fos_user_security_login') }}"><span class="icon16 icomoon-icon-exit"></span> Se connecter</a></li>
+    </ul>          
+</div>
+{% endblock %}
+{% block content %}
+<div id="content-home" >
+    <div class="contentwrapper">
+        <div class="heading">
+            <div class="resBtnSearch">
+                <a href="#"><span class="icon16 icomoon-icon-search-3"></span></a>
+            </div>
+            <div class="search">
+
+                <form id="searchform">
+                    <input type="text" name="motcle"  id="tipue_search_input" class="top-search" placeholder="Rechercher ..." />
+                    <input type="submit" id="tipue_search_button" class="search-btn" value=""/>
+                </form>
+
+            </div>
+        </div>
+        <div style="margin-left: auto;margin-right: auto;text-align:center;">
+            <ul class="hProductItems clearfix">
+                <table width="100%"><tr>
+                                                            {% set newline=0 %}
+                                                            {% for entity in entities %}
+                                <td style="display: inline-block;margin-left:40px;margin-bottom: 3px;">
+                                    <form action="{{ path('gestion_publication_add_panier', { 'id': entity.id }) }}" method="post" >
+                                        <div class="thumbnail">
+										{% if entity.photo=="" %}
+                                                <a href="{{ asset('images/livre.jpg') }}?lightbox[width]=383&lightbox[height]=476"  
+                                                   title="Titre : {{ entity.titre }}<br>
+                                                   Auteur : {{ entity.auteur }}<br>
+                                                   Editeur : {{ entity.editeur }}<br>
+                                                   Serie : {{ entity.serie }}<br>
+                                                   Edition : {{ entity.edition }}<br>
+                                                   Prix : {{ entity.prix }}<br>
+                                                   ISBN : {{ entity.isbn }}<br>
+                                                   ISSN : {{ entity.issn }}<br>
+                                                   Impression : {{ entity.impression }}"
+                                                   onmouseover="this.setAttribute('org_title', this.title);
+                                           this.title = '{{ entity.titre }}';" 
+                                                   onmouseout="this.title = this.getAttribute('org_title');" 
+                                                   onclick="this.title = this.getAttribute('org_title');"  
+                                                   class="lightbox" ><img src="{{ asset('images/livre.jpg') }}" alt="" style="width:143px;height:192px"></a>
+                                                                                {% else %}
+                                                <a href="{{ asset(entity.webPath) }}?lightbox[width]=383&lightbox[height]=476" 
+                                                   title="Titre : {{ entity.titre }}<br>
+                                                   Auteur : {{ entity.auteur }}<br>
+                                                   Editeur : {{ entity.editeur }}<br>
+                                                   Serie : {{ entity.serie }}<br>
+                                                   Edition : {{ entity.edition }}<br>
+                                                   Prix : {{ entity.prix }}<br>
+                                                   ISBN : {{ entity.isbn }}<br>
+                                                   ISSN : {{ entity.issn }}<br>
+                                                   Impression : {{ entity.impression }}"
+                                                   onmouseover="this.setAttribute('org_title', this.title);
+                                           this.title = '{{ entity.titre }}';" 
+                                                   onmouseout="this.title = this.getAttribute('org_title');" 
+                                                   onclick="this.title = this.getAttribute('org_title');" 
+                                                   class="lightbox" ><img src="{{ asset(entity.webPath) }}" alt="" style="width:143px;height:192px"></a>
+                                                                                {% endif %} 
+                                            </div>
+
+                                            <div class="thumbSetting">
+                                                <div class="thumbTitle" style="height:60px;">
+                                                    <a href="#" class="invarseColor">
+                                                                                            {% if entity.titre|length > 50 %}
+												{{ entity.titre|slice(0, 49) }} ...
+                                                                                              {% else %}
+                                                                                             {{ entity.titre }}
+                                                                                            {% endif %}
+                                                        </a>
+                                                    </div>
+                                                    <div class="thumbPrice">
+                                                        <span>{{ entity.prix }} Dhs</span>
+                                                    </div>
+                                                </div>
+                                                <hr style="color:#8C898A;background-color:#8C898A;height: 5px;">
+                                            </form>  
+                                        </td>
+                                                        {% set newline= newline+1 %}
+                                                        {% if newline==4 %}
+                                                        {% set newline=0 %}
+                                    </tr><tr>
+                                                                        {% endif %}
+                                                     {% endfor %}
+                                    </table>
+                           {% if entities|length != 0 %}
+                                    <div class="pagination">
+                                        <ul>
+                          {# On utilise la fonction range(a, b) qui crée un tableau de valeurs entre a et b #}
+                          {% for p in range(1, nombrePage) %}
+                                                <li{% if p == page %} class="active"{% endif %}>
+                                                    <a href="{{ path('ouvrage', {'page': p}) }}">{{ p }}</a>
+                                                </li>
+                          {% endfor %}
+                                            </ul>
+                                        </div>
+                      {% endif %}
+                                    </ul>
+
+                                </div>
+
+                            </div>
+                        </div>
+{% endblock %}

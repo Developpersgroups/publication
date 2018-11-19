@@ -1,0 +1,9 @@
+#afficher les commandes payantes
+gestion_publication_commandes:
+      pattern:  /admin/afficherCommandes/AQSER756{page}7F567GFG5
+      defaults: { _controller: GestionPublicationBundle:Commandes:afficherCommandes ,page : 1 }
+      
+#afficher les commandes don
+gestion_publication_commandesDon:
+      pattern:  /admin/afficherCommandesDon/AQSER756{page}7F567GFG5
+      defaults: { _controller: GestionPublicationBundle:Commandes:afficherCommandesDon ,page : 1 }

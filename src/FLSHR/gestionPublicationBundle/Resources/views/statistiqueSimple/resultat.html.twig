@@ -1,0 +1,111 @@
+{% if entities|length==0 %}
+ <div align="center">
+<h2>il n'éxiste aucune commande pour cette date, merci de choisir une autre</h2>
+</div>
+{% else %}
+  <div style="float:right;padding-bottom:8px; ">
+         {% if temoin == 0 %}
+         <a href="{{ path('gestion_publication_imprimer_commandes' ,{'var1':annee ,'var2':mois ,'var3':jour , 'temoin':temoin}  ) }}" 
+            class="btn btn-warning" target="_blink"  ><i class="icon-white icon-print"></i> Imprimer</a>          
+          {% endif %}
+         {% if temoin == 1 %}
+         <a href="{{ path('gestion_publication_imprimer_commandes' ,{'var1':annee ,'var2':mois ,'var3':semaine , 'temoin':temoin}  ) }}" 
+            class="btn btn-warning" target="_blink"  ><i class="icon-white icon-print"></i> Imprimer</a>          
+          {% endif %}         
+         
+         {% if temoin == 2 %}
+         <a href="{{ path('gestion_publication_imprimer_commandes' ,{'var1':annee ,'var2':mois ,'var3':1 , 'temoin':temoin}  ) }}" 
+            class="btn btn-warning" target="_blink"  ><i class="icon-white icon-print"></i> Imprimer</a>          
+          {% endif %}
+         
+         {% if temoin == 3 %}
+         <a href="{{ path('gestion_publication_imprimer_commandes' ,{'var1':annees_debut ,'var2':annees_fin ,'var3':2 , 'temoin':temoin}  ) }}" 
+            class="btn btn-warning" target="_blink"  ><i class="icon-white icon-print"></i> Imprimer</a>          
+          {% endif %}
+         
+  </div>
+<table class="responsive table table-bordered">
+    <thead>
+        <tr>
+            <th>N° commande</th>
+            <th>Date de commande</th>
+            <th>Réduction</th>
+            <th>Utilisateur</th>
+            <th>E-mail client</th>
+            <th>Nombres d'ouvrages</th>
+            <th>Prix total</th>
+        </tr>
+    </thead>
+                                    
+    <tbody>{% set qte = 0 %}{% set prixT =0 %}
+                                  {% for entity in entities %}
+            <tr>
+                <td>000{{ entity.id }}</td>
+                <td>{{ entity.datecommande|date('Y-m-d') }}</td>
+                {% if entity.reduction== 100%}
+                <td>Don</td> 
+                {% else %}
+                <td>{{ entity.reduction }}%</td>
+                {% endif %}
+                <td>{{ entity.user }}</td>
+                <td>{{ entity.uti.email }}</td>
+               
+                <td>{{ entity.detailcomande|length }}</td>
+                                    {% set prixTotal = 0 %} 
+                                    {% for entit1 in entity.detailcomande %} 
+                                    {% set prixTotal = (prixTotal + (entit1.qtecommande * entit1.ouvrage.prix))  %} 
+                                    {% endfor %}
+                
+                <td>{{ ((prixTotal + (prixTotal*0.2)) - ((prixTotal+(prixTotal*0.2)) * (entity.reduction/100))) }} dhs</td>
+            </tr>
+                                  {% endfor %}
+        </tbody>
+    </table>
+{% set qte = 0 %}{% set prixT =0 %}
+{% for entity in entities1 %}
+{% set prixTotal = 0 %} 
+{% for entit1 in entity.detailcomande %} 
+{% set prixTotal = (prixTotal + (entit1.qtecommande * entit1.ouvrage.prix))  %} 
+{% endfor %}
+{% set prixT = prixT + ((prixTotal + (prixTotal*0.2)) - ((prixTotal+(prixTotal*0.2)) * (entity.reduction/100))) %}
+ {% set qte=qte + (entity.detailcomande|length) %}
+{% endfor %}
+
+<div style="float: right;">
+    <span style="font-weight: bold;">Nombre des ouvrages vendus:</span> {{ qte }}</br>
+    <span style="font-weight: bold;">Prix total des factures : </span>{{ prixT }} dhs
+</div>
+<div class="pagination" style="width:800px; float: left;">
+                    <ul>
+                          {# On utilise la fonction range(a, b) qui crée un tableau de valeurs entre a et b #}
+                          {% for p in range(1, nombrePage) %}
+                            <li{% if p == page %} class="active"{% endif %}>
+                                <a id="pag{{ p }}" >{{ p }}</a>
+                            </li>
+                          {% endfor %}
+                    </ul>
+</div>
+
+
+{% endif %}
+
+<script type="text/javascript" src="{{ asset('js/jquery1.8.3.min.js') }}"></script>
+<script type="text/javascript">
+    
+        $(document).ready(function() {
+            $("#loader").hide(); 
+            {% for p in range(1, nombrePage) %}
+$('#pag{{ p }}').click(function() {
+$("#loading").show();
+$('#reponse').hide();   
+$.ajax({type: 'POST',
+                url: "{{ path( pat ,{'page': p} ) }}",
+                data: $('#{{ form }}').serialize(),
+                success: function(data) {
+                 $("#loading").fadeOut();            
+                 $('#reponse').hide().html(data).fadeIn();
+                }});        });
+        {% endfor %}
+       
+}); 
+</script>

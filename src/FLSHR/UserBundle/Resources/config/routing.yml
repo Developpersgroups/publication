@@ -1,0 +1,21 @@
+# app/config/routing.yml
+fos_user_security:
+    resource: "routing/security.yml"
+    prefix: / 
+    
+fos_user_profile:
+    resource: "routing/profile.yml"
+    prefix: /compte
+
+fos_user_register:
+    resource: "routing/inscription.yml"
+    prefix: /inscription
+
+fos_user_resetting:
+    resource: "routing/resetting.yml"
+    prefix: /resetting
+
+fos_user_change_password:
+    resource: "routing/change_mot_passe.yml"
+    prefix: /compte
+    

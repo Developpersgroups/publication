@@ -1,0 +1,93 @@
+
+{% extends 'GestionPublicationBundle::gestionPublication/base.html.twig' %}
+{% block title %}FLSHR Gestion des publications | Commandes{% endblock %} 
+{% block entete %} {% endblock %} 
+{% block sidebar %} {% endblock %} 
+{% block content %}
+<br>
+<style>
+/*modifier l'apparence des scrollbars de tout le forum*/
+::-webkit-scrollbar { 
+  width: 5px; /*largeur de la scrollbar verticale*/
+  height: 5px; /*hauteur de la scrollbar horizontale*/
+  background-color: #000000;}
+
+::-webkit-scrollbar-track { 
+  background-color: #FFFFFF; /*couleur du fond de la scrollbar*/}
+
+::-webkit-scrollbar-thumb { /*la petite bande qui monte/descend*/
+  background-color: #000000 /*couleur de l'ascenseur*/;
+  border-radius: 15px;
+  -moz-border-radius: 15px;
+  -webkit-border-radius: 15px;}
+</style>
+<div style="padding:4px;">
+                <div class="row-fluid">
+                    <h4 style="margin-top:-6px ; width: 200px; float: left;"></h4>
+                       <div style="float:right; width: 100px; padding-bottom: 10px;"> 
+      <a target="_blink" href="{{ path('gestion_publication_imprimer_trace' , {'id' : id } ) }}" class="btn btn-warning"><i class="icon-white icon-print"></i> Imprimer</a> 
+   </div>
+                    <table class="responsive table table-bordered">
+            <thead>
+               <tr>
+                  <th>N° commande</th>
+                  <th>Date de commande</th>
+                  <th>Réduction</th>
+                  <th>Email du client</th>
+                  <th>Profession</th>
+                  <th>Nombre d'ouvrage</th>
+                  {% if is_granted('ROLE_SUPER_ADMIN') %}
+                  <th>Vendeur</th>
+                  {% endif %}    
+               </tr>
+            </thead>
+            <tbody>
+               {% if is_granted('ROLE_SUPER_ADMIN') %}
+               {% for entity in entities|reverse %}
+               {% for entity1 in entity.detailcomande %}
+               {% if  entity1.ouvrage.id==id %}
+               <tr>
+                  <td>{{ entity.id }}</td>
+                  <td>{{ entity.datecommande|date('Y-m-d') }}</td>
+                                        {% if entity.reduction==100 %}
+                                        <td>don</td>
+                                        {% else %}
+                                        <td>{{ entity.reduction }}%</td>
+                                        {% endif %}
+                                        
+                  <td>{{ entity.uti.email }}</td>
+                  <td>{{ entity.uti.typeutilisateur }}</td>
+                  <td>{{ entity.detailcomande|length }}</td>
+                  <td>{{ entity.user }}</td>
+               </tr>
+               {% endif %}
+               {% endfor %}
+               {% endfor %}
+               {% else %}
+               {% for entity in entities %}
+               {% for entity1 in entity.detailcomande %}
+               {% if  entity1.ouvrage.id==id %}
+               <tr>
+                  <td>{{ entity.id }}</td>
+                  <td>{{ entity.datecommande|date('Y-m-d') }}</td>
+                                         {% if entity.reduction==100 %}
+                                        <td>don</td>
+                                        {% else %}
+                                        <td>{{ entity.reduction }}%</td>
+                                        {% endif %}
+                  <td>{{ entity.uti.email }}</td>
+                  <td>{{ entity.uti.typeutilisateur }}</td>
+                  <td>{{ entity1|length }}</td>
+               </tr>
+               {% endif %}
+               {% endfor %}
+               {% endfor %}
+               {% endif %}
+            </tbody>
+         </table>
+                </div>         
+          
+ </div>
+{% endblock %}
+
+

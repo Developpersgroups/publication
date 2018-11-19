@@ -1,0 +1,116 @@
+att tchof
+hadi bach tbadal l mot de passe??
+
+{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %} 
+        Connecté en tant que {{ app.user.username }} - 
+            <a href="{{path('fos_user_security_logout') }}">Déconnexion</a></br>
+            <a href="{{path('fos_user_profile_show') }}">Profil</a></br>
+            <a href="{{ path('fos_user_change_password') }}">changer votre mot de passe</a></br>
+            
+    {% else %}   
+            <a href="{{ path('fos_user_security_login') }}">Connexion</a></br>
+            <a href="{{ path('fos_user_registration_register') }}">s'incrire</a>
+    {% endif %}
+
+
+{% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('ouvrage_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.titre }}</td>
+                <td>{{ entity.auteur }}</td>
+                <td>{{ entity.editeur }}</td>
+                <td>{{ entity.serie }}</td>
+                <td>{{ entity.impression }}</td>
+                <td>{{ entity.depotLegal }}</td>
+                <td>{{ entity.isbn }}</td>
+                <td>{{ entity.issn }}</td>
+                <td>{{ entity.edition }}</td>
+                <td>{{ entity.prix }}</td>
+                <td>{{ entity.qutestocke }}</td>
+                <td>{{ entity.photo }}</td>
+                <td>{{ entity.descrption }}</td>
+                <td>{{ entity.dateentree }}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('ouvrage_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('ouvrage_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+
+
+{% block fos_user_content %}
+{% if error %}
+    <div>{{ error|trans }}</div>
+{% endif %}
+
+<form action="{{ path("fos_user_security_check") }}" method="post">
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+       
+    <label for="username">{{ 'security.login.username'|trans }}</label> test nijo
+    <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" />
+
+    <label for="password">{{ 'security.login.password'|trans }}</label>
+    <input type="password" id="password" name="_password" required="required" />
+
+    <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+    <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
+
+    <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
+</form>
+{% endblock fos_user_content %}
+
+{% extends 'GestionPublicationBundle::gestionPublication/base.html.twig' %}
+
+
+   // $_GET parameters
+    $request->query->get('name');
+
+    // $_POST parameters
+    $request->request->get('name');
+
+						<div class="box " style="float:left;width:58%;">
+
+                                <div class="title">
+
+                                    <h4>
+                                        <span>Informations supplémentaires</span>
+                                    </h4>
+                                    
+                                </div>
+                                <div class="content">
+                                   
+                                    <form class="form-horizontal" id="form-validate" action="forms-validation.html" >
+                                        
+                                        <div class="form-row row-fluid">
+                                            <div class="span12">
+                                                <div class="row-fluid">
+                                                    <label class="form-label span3" for="required">label1</label>
+                                                    <input class="span9" id="required" name="required" type="text" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-row row-fluid">
+                                            <div class="span12">
+                                                <div class="row-fluid">
+                                                    <label class="form-label span3" for="required">label2</label>
+                                                    <input class="span9" id="required1" name="required1" type="text" />
+                                                </div>
+                                            </div>
+                                        </div> 
+                                        <div class="form-row row-fluid">
+                                            <div class="span12">
+                                                <div class="row-fluid">
+                                                    <label class="form-label span3" for="email">label3</label>
+                                                    <input class="span9" id="email" name="email" type="text" />
+                                                </div>
+                                            </div>
+                                        </div>
+</div>
+                            </div>
+						</div>

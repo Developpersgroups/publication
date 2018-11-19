@@ -1,0 +1,207 @@
+{% extends 'GestionPublicationBundle::gestionPublication/base.html.twig' %}
+{% block title %}FLSHR Gestion des publications | Ouvrages{% endblock %} 
+{% block stylesheets %}
+{{ parent() }}
+        <link href="{{ asset('css/itoast.css') }}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('css/pirobox/style.css') }}" rel="stylesheet" type="text/css" />
+{% endblock %} 
+{%block connection %}
+<div style="float:right;padding-top:20px">
+<ul class="nav">
+<li><a href="{{ path('fos_user_security_logout') }}"><span class="icon16 icomoon-icon-exit"></span>Se déconnecter</a></li>
+</ul>          
+</div>
+{% endblock %}
+        
+{% block content %}
+  <div id="content" class="clearfix">
+            <div class="contentwrapper">
+                <div class="heading">
+                    <h3>Les ouvrages</h3>                    
+                </div> 
+                    <div class="pagination" style="cursor:pointer; width: 780px;">
+                    <ul id="pages">
+                                        <li><a>A</a> </li>
+                                        <li><a>B</a> </li>
+                                        <li><a>C</a> </li>
+                                        <li><a>D</a> </li>
+                                        <li><a>E</a> </li>
+                                        <li><a>F</a> </li>
+                                        <li><a>G</a> </li>
+                                        <li><a>H</a> </li>
+                                        <li><a>I</a> </li>
+                                        <li><a>G</a> </li>
+                                        <li><a>K</a> </li>
+                                        <li><a>L</a> </li>
+                                        <li><a>M</a> </li>
+                                        <li><a>N</a> </li>
+                                        <li><a>O</a> </li>
+                                        <li><a>P</a> </li>
+                                        <li><a>Q</a> </li>
+                                        <li><a>R</a> </li>
+                                        <li><a>S</a> </li>
+                                        <li><a>T</a> </li>
+                                        <li><a>U</a> </li>
+                                        <li><a>V</a> </li>
+                                        <li><a>W</a> </li>
+                                        <li><a>Y</a> </li>
+                                        <li><a>Z</a> </li></br>
+                                        <li><a>ا</a> </li>
+                                        <li><a>ب</a> </li>
+                                        <li><a>ت</a> </li>
+                                        <li><a>ث</a> </li>
+                                        <li><a>ج</a> </li>
+                                        <li><a>ح</a> </li>
+                                        <li><a>خ</a> </li>
+                                        <li><a>د</a> </li>
+                                        <li><a>ذ</a> </li>
+                                        <li><a>ر</a> </li>
+                                        <li><a>ز</a> </li>
+                                        <li><a>س</a> </li>
+                                        <li><a>ش</a> </li>
+                                        <li><a>ص</a> </li>
+                                        <li><a>ض</a> </li>
+                                        <li><a>ط</a> </li>
+                                        <li><a>ظ</a> </li>
+                                        <li><a>ع</a> </li>
+                                        <li><a>غ</a> </li>
+                                        <li><a>ف</a> </li>
+                                        <li><a>ق</a> </li>
+                                        <li><a>ك</a> </li>
+                                        <li><a>ل</a> </li>
+                                        <li><a>م</a> </li>
+                                        <li><a>ن</a> </li>
+                                        <li><a>ه</a> </li>
+                                        <li><a>و</a> </li>
+                                        <li><a>ي</a> </li>
+                                        
+                    </ul>                
+                    </div>
+            {% set productexpire=0 %}
+            {% for x in ouvrages %}
+            {% if x.qutestocke <= 10 and x.etat!="archive" %}
+            {% set productexpire = productexpire + 1 %}
+            {% endif %} 
+            {% endfor %}
+                <div class="row-fluid" align="center">
+                   <div align="center" id="loading">
+                  <img src="{{ asset('images/loading.gif') }}" alt="Loading .." />
+                  </div>
+               </div>
+                    <div id="reponse">
+                  
+                   </div>
+							
+                                
+				</div>
+                </div>
+          <script language="javascript" >
+            var x = {{ productexpire }}
+           </script>
+ {% if productexpire  > 0 %}
+{% block notification %}
+<span id="notification" class="notification" style="right:6px;">
+<script language="javascript" >
+document.getElementById('notification').innerHTML = x;
+</script>
+</span>
+{% endblock %}
+{% endif %}
+{% endblock %}
+{% block javascripts %}
+    <script type="text/javascript" src="{{ asset('js/jquery1.8.3.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/bootstrap/bootstrap.js') }}"></script>  
+    <script type="text/javascript" src="{{ asset('js/jquery.cookie.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.mousewheel.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('plugins/charts/sparkline/jquery.sparkline.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('plugins/misc/qtip/jquery.qtip.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('plugins/misc/totop/jquery.ui.totop.min.js') }}"></script> 
+    <script type="text/javascript" src="{{ asset('plugins/misc/search/tipuesearch_set.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('plugins/misc/search/tipuesearch_data.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('plugins/misc/search/tipuesearch.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('plugins/fix/ios-fix/ios-orientationchange-fix.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery1.9.2.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('plugins/fix/touch-punch/jquery.ui.touch-punch.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/lightbox/jquery.lightbox.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/itoast.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/pirobox_extended.js') }}"></script>
+    <script language="javascript" >
+    $( document ).ready(function() {
+     $('#reponse').fadeOut();
+     $("#loading").fadeIn();
+     $.ajax({type: 'POST',
+                url: "{{ path('gestion_publication_liste_ouvrage') }}",
+                data: $('#stats_quotidien').serialize(),
+                success: function(data) {
+                 $("#loading").fadeOut();            
+                 $('#reponse').hide().html(data).fadeIn();
+                }});
+          if( x > 0 ) {
+          if ( x < 2 ) var msg = "ouvrage"; else var msg = "ouvrages";
+         iToast.showError("<div style='float:left;margin-left:-30px;padding-top:6px'>\n\
+<img src='{{ asset('images/alert.png') }}' alt=''/></div><div style='padding-top:10px;padding-left:72px;cursor:pointer;'>Attention</div>","<div style='padding-left:62px;cursor:pointer;'>\n\
+<a href={{ path('gestion_publication_affichage_ouvrage_0') }} rel=\"iframe-800-520\" class=\"pirobox_gall1\"> Vous avez "+x+" "+msg+"<br> hors stock</a></div>"
+                               
+         ); 
+        $.piroBox_ext({
+	piro_speed :700,
+	bg_alpha : 0.5,
+	piro_scroll : false,
+	piro_drag :false,
+	piro_nav_pos: 'bottom'
+      });         
+} 
+$('#loading').hide();
+        var minlength = 1;
+    $("#tipue_search_input").keyup(function () {
+        var that = this,
+        value = $(this).val();
+        if (value.length >= minlength ) {
+           $('#loading').fadeIn();
+           $('#reponse').fadeOut();
+            $.ajax({
+                type: "POST",
+                url: "{{ path('gestion_publication_search_ouvrage') }}",
+                data: {
+                    'search_keyword' : value
+                },
+                dataType: "text",
+                success: function(msg){
+                    //verifier wach la valure hiya hadik wlla la
+                    if (value === $(that).val()) {
+                    //Resultat hnna
+                    $('#loading').fadeOut();
+                  $('#reponse').hide().html(msg).fadeIn();
+                   //alert(msg);
+                    }
+                }
+            });
+        }
+         });
+             $("#pages li a").click(function () {
+             $('#loading').fadeIn();
+            $('#reponse').fadeOut();
+        value = $(this).text();
+            $.ajax({
+                type: "POST",
+                url: "{{ path('gestion_publication_search_ouvrage') }}",
+                data: {
+                    'search_keyword' : value
+                },
+                dataType: "text",
+                success: function(msg){
+
+                    $('#loading').fadeOut();
+                  $('#reponse').hide().html(msg).fadeIn();
+                   //alert(msg);
+                    }
+            });
+        
+         });
+         
+         });
+         
+    </script>
+    <script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/empty.js') }}"></script>
+    {% endblock %}

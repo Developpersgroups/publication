@@ -1,0 +1,90 @@
+#page d'accueil de site
+ouvrage:
+    pattern:  /accueil.php/{page}
+    defaults: { _controller: GestionPublicationBundle:Ouvrage:index,page: 1 }
+    requirements:
+          page:  \d+
+
+#page d'acueil de l'administrateur
+gestion_publication_accueil:
+    pattern:  /admin/accueil
+    defaults: { _controller: "GestionPublicationBundle:Ouvrage:accueil" }
+
+#lister les ouvrages du stock pour passer la commande
+gestion_publication_liste_ouvrage:
+      pattern:  /admin/listeouvrages/YTRYR645{page}ETE46456
+      defaults: { _controller: GestionPublicationBundle:Ouvrage:listeOuvrage,page: 1 }
+      requirements:
+          page:  \d+
+          
+gestion_publication_liste_ouvrage_accueil:
+      pattern:  /admin/panier
+      defaults: { _controller: GestionPublicationBundle:Ouvrage:afficherProduits }          
+          
+#afficher les ouvrages
+ouvrage_afficher:
+    pattern:  /admin/afficherOuvrages/GDFG64{page}GDF5654
+    defaults: { _controller: GestionPublicationBundle:Ouvrage:afficherOuvrage,page: 1 }
+    requirements:
+          page:  \d+
+
+#ajouter un ouvrage      
+ouvrage_new:
+    pattern:  /admin/ajouterOuvrage
+    defaults: { _controller: "GestionPublicationBundle:Ouvrage:ajouterOuvrage" }
+
+#inserer un ouvrage
+ouvrage_create:
+    pattern:  /admin/insererOuvrage
+    defaults: { _controller: "GestionPublicationBundle:Ouvrage:create" }
+    requirements: { _method: post }
+
+#modifier un ouvrage
+ouvrage_edit:
+    pattern:  /admin/GDFSFS{id}54645FGD35/modifierOuvrage
+    defaults: { _controller: "GestionPublicationBundle:Ouvrage:modifierOuvrage" }
+    
+#modifier un ouvrage
+ouvrage_update:
+    pattern:  /admin/FSF3535{id}GDFG4564/update
+    defaults: { _controller: "GestionPublicationBundle:Ouvrage:mettreAjourOuvrage" }
+    requirements: { _method: post }
+
+#supprimer un ouvrage
+ouvrage_delete:
+    pattern:  admin/SFS6456{id}SFDS654/delete
+    defaults: { _controller: "GestionPublicationBundle:Ouvrage:supprimerOuvrage" }
+    requirements: { _method: get }
+
+ 
+
+#afficher les ouvrages ayant la quantité est null 
+gestion_publication_affichage_ouvrage_0:
+        pattern:  /admin/afficherouvrage
+        defaults: { _controller: GestionPublicationBundle:Ouvrage:afficherQte }  
+        
+#imprimer les ouvrages        
+gestion_publication_imprimer_ouvrages:
+        pattern:  /admin/printouvrages
+        defaults: { _controller: GestionPublicationBundle:Ouvrage:imprimerOuvrages }
+   
+#Archive les ouvrages        
+gestion_publication_afficher_archives:
+        pattern:  /admin/afficherArchive/{page}
+        defaults: { _controller: GestionPublicationBundle:Ouvrage:listeOuvrageArchive , page: 1 }
+                
+#traces des ouvrages        
+gestion_publication_afficher_trace:
+        pattern:  /admin/afficheTrace/{id}
+        defaults: { _controller: GestionPublicationBundle:Ouvrage:afficheTrace }
+                
+#recherche ajax
+gestion_publication_search_ouvrage:
+    pattern:  admin/search
+    defaults: { _controller: "GestionPublicationBundle:Ouvrage:rechercher" }
+    
+#traces des ouvrages        
+gestion_publication_imprimer_trace:
+        pattern:  /admin/imprimerTrace/{id}
+        defaults: { _controller: GestionPublicationBundle:Ouvrage:imprimerTrace }
+                    

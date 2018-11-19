@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+/*tr:nth-child(odd)		{ background-color:#B3B1B1; }
+tr:nth-child(even)		{ background-color:#fff;}*/
+th { background-color:#63585C; color:#FFFFFF;text-align: center; vertical-align: middle; font-family:arial;font-size:11px; border-width: 1px; padding: 2px; border-style: solid; border-color: #63585C;}
+td { text-align: center; vertical-align: middle; font-family:arial; font-size:10px; border-width: 1px; padding: 2px; border-style: solid; border-color: #63585C;}
+table { width:100%; border-width: 1px; border-spacing: 0px; border-style: solid; border-color: #63585C; border-collapse: separate; background-color: rgb(219, 219, 219); }
+</style>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+</head>
+	<body>
+                <img src="{{ chemin }}/{{  asset('images/top-logo.png') }}" border="0" 
+                 alt="Faculté des Lettres et des Sciences Humaines de Rabat"
+                 width="200" 
+                 height="46" style="padding-bottom: 30px ;"/>  
+                <span style="float: right ;">{{ dat|date('Y-m-d') }}</span>           
+                                    {% set prixTotal = 0 %}
+                                    {% set produits  = 0 %}    
+                                    {% for entity in entities.com.detailcomande %}
+                                    {% set produits=produits + entity.qtecommande %}  
+                                    {% set prixTotal= (prixTotal + (entity.qtecommande * entity.ouvrage.prix))  %} 
+                                    {% endfor %}
+                <div>
+                    <h5>Facture</h5>
+                            <table>
+                                <thead>
+                                  <tr>
+                                    <th>N° Facture</th>
+                                     <th>Date de facture</th>
+                                      <th>Vendeur</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                   
+                                  <tr>
+                                    <td>00{{ entities.id }}</td>
+                                    <td>{{ entities.datefacture|date('Y-m-d H:m:s') }}</td>
+                                     <td>{{ entities.com.user }}</td>
+                                  </tr>
+                                   
+                                </tbody>
+                            </table>
+                    </div>
+         <div>
+                    <h5>Commande</h5>
+                            <table>
+                                <thead>
+                                  <tr>
+                                    <th>N° commande</th>
+                                     <th>Date de commande</th>
+                                     <th>Réduction</th>
+                                     <th>Type de client</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                   
+                                  <tr>
+                                    <td>00{{ entities.com.id }}</td>
+                                    <td>{{ entities.com.datecommande|date('Y-m-d') }}</td>
+                                    {% if entities.com.reduction==100 %}
+                                        <td>don</td>
+                                        {% else %}
+                                        <td>{{ entities.com.reduction }}%</td>
+                                        {% endif %}
+                                        <td>{{ entities.com.uti.typeutilisateur }}</td> 
+                                    
+                                  </tr>
+                                   
+                                </tbody>
+                            </table>
+                    </div>
+                    <h5>Détails de commande</h5>
+                            <table >
+                                <thead>
+                                  <tr>
+                                    <th>Titre</th>
+                                     <th>Auteur</th>
+                                    <th>Prix</th>
+                                     <th>Quantité</th>  
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                   {% for entity in entities.com.detailcomande %}
+                                  <tr>
+                                    <td>{{ entity.ouvrage.titre }}</td>
+                                    <td>{{ entity.ouvrage.auteur }}</td>
+                                    <td>{{ entity.ouvrage.prix }} dhs</td>
+                                    <td>{{ entity.qtecommande }}</td>
+                                  </tr>
+                                   {% endfor %}
+                                </tbody>
+                                
+                            </table>
+                    </div>
+          <h5>Détails de facture</h5>
+                            <table>
+                                <thead>
+                                  <tr>
+                                    <th>Prix HT</th>
+                                    <th>Prix TTC</th>
+                                    <th>Prix après réduction</th>
+                                    <th>Prix total</th>  
+                                  </tr>
+                                </thead>
+                                <tbody>  
+                                  <tr>
+                                    <td>{{ prixTotal }} dhs</td>
+                                    <td>{{ prixTotal + (prixTotal*0.2) }} dhs</td>
+                                    <td>{{ ((prixTotal+(prixTotal*0.2))- ((prixTotal+(prixTotal*0.2)) * (entities.com.reduction/100))) }} dhs</td>
+                                    <td>{{ ((prixTotal+(prixTotal*0.2))- ((prixTotal+(prixTotal*0.2)) * (entities.com.reduction/100))) }} dhs</td>
+                                  </tr>  
+                                </tbody>          
+                            </table>
+    </body>
+</html>

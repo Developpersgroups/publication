@@ -1,0 +1,30 @@
+#statistique simple        
+gestion_publication_stats_simple:
+        pattern:  /Simple
+        defaults: { _controller: GestionPublicationBundle:StatistiqueSimple:statsSimple }  
+
+#statistique quotidienne click
+gestion_publication_submit_stats_quotidien:
+        pattern:  /submitstatsquotidien/GDFGDF546{page}SDFSD564
+        defaults: { _controller: GestionPublicationBundle:StatistiqueSimple:submitStatsQuotidien , page : 1  } 
+
+#statistique hebdomadaire click        
+gestion_publication_submit_stats_hebdomadaire:
+        pattern:  /submitstatshebdomadaire/GFD645{page}DGDF64
+        defaults: { _controller: GestionPublicationBundle:StatistiqueSimple:submitStatsHebdomadaire , page : 1 } 
+
+#statistique mensuelle click         
+gestion_publication_submit_stats_mensuel:
+        pattern:  /submitstatsmensuel/GDFGD6546{page}DGDG6464
+        defaults: { _controller: GestionPublicationBundle:StatistiqueSimple:submitStatsMensuel , page : 1  }  
+
+#statistique annuelle click
+gestion_publication_submit_stats_annuel:
+        pattern:  /submitstatsannuel/DGDF564{page}DGD46464
+        defaults: { _controller: GestionPublicationBundle:StatistiqueSimple:submitStatsAnnuel , page : 1 }  
+
+#imprimer les commandes        
+gestion_publication_imprimer_commandes:
+        pattern:  /printcommandes/GDGD64{var1}DGD655/DFGDF{var2}45654/DGDF{var3}ETE/DGD{temoin}ETE
+        defaults: { _controller: GestionPublicationBundle:StatistiqueSimple:imprimerStats }    
+

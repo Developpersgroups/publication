@@ -1,0 +1,15 @@
+#afficher les factures
+gestion_publication_facture:
+      pattern:  /admin/afficherFacture/GDFG53{page}FSDF3534
+      defaults: { _controller: GestionPublicationBundle:Factures:afficherFactures ,page : 1 }
+
+#afficher details d'une facture      
+ouvrage_detail_facture:
+      pattern:  /admin/detailfacture/GDFG53{id}FSDF3534
+      defaults: { _controller: GestionPublicationBundle:Factures:detailfacture }
+      
+#imprimer une facture        
+gestion_publication_imprimer_factures:
+        pattern:  /admin/printfactures/HFGH87{id}FSDFS43
+        defaults: { _controller: GestionPublicationBundle:Factures:imprimerFactures }
+      

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Ouvrage" table="ouvrage">
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="titre" type="string" column="titre" length="254" nullable="true"/>
+    <field name="auteur" type="string" column="auteur" length="254" nullable="true"/>
+    <field name="editeur" type="string" column="editeur" length="254" nullable="true"/>
+    <field name="serie" type="string" column="serie" length="254" nullable="true"/>
+    <field name="impression" type="string" column="impression" length="254" nullable="true"/>
+    <field name="depotLegal" type="string" column="depot_legal" length="254" nullable="true"/>
+    <field name="isbn" type="string" column="isbn" length="254" nullable="true"/>
+    <field name="issn" type="string" column="issn" length="254" nullable="true"/>
+    <field name="edition" type="string" column="edition" length="254" nullable="true"/>
+    <field name="prix" type="decimal" column="prix" nullable="true"/>
+    <field name="qutestocke" type="integer" column="qutestocke" nullable="true"/>
+    <field name="photo" type="string" column="photo" length="254" nullable="true"/>
+    <field name="descrption" type="string" column="descrption" length="1024" nullable="true"/>
+    <field name="dateentree" type="string" column="dateentree" length="254" nullable="true"/>
+    <many-to-many field="com" target-entity="Commande" mapped-by="livre"/>
+  </entity>
+</doctrine-mapping>

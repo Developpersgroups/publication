@@ -1,0 +1,8 @@
+flshr_user:
+    resource: "@FLSHRUserBundle/Resources/config/routing.yml"
+    prefix:   /
+
+gestion_publication:
+    resource: "@GestionPublicationBundle/Resources/config/routing.yml"
+    prefix:   /
+

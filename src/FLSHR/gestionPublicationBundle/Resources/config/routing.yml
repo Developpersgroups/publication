@@ -1,0 +1,36 @@
+#routing ouvrage
+GestionPublicationBundle_ouvrage:
+     resource: "@GestionPublicationBundle/Resources/config/routing/ouvrage.yml"
+     prefix:   /
+
+#routing statistiqueGraphique
+GestionPublicationBundle_statstiqueGraphique:
+     resource: "@GestionPublicationBundle/Resources/config/routing/statistiqueGraphique.yml"
+     prefix:   /admin/statistiques
+
+#routing statistiqueSimple
+GestionPublicationBundle_statstiqueSimple:
+     resource: "@GestionPublicationBundle/Resources/config/routing/statistiqueSimple.yml"
+     prefix:   /admin/statistiques
+
+#routing Panier
+GestionPublicationBundle_panier:
+     resource: "@GestionPublicationBundle/Resources/config/routing/panier.yml"
+     prefix:   /
+     
+#routing Factures
+GestionPublicationBundle_factures:
+     resource: "@GestionPublicationBundle/Resources/config/routing/facture.yml"
+     prefix:   / 
+ 
+#routing commandes
+GestionPublicationBundle_commandes:
+     resource: "@GestionPublicationBundle/Resources/config/routing/commande.yml"
+     prefix:   /      
+
+
+#afficher les commandes
+test:
+      pattern:  /admin/test
+      defaults: { _controller: GestionPublicationBundle:StatistiqueGraphique:test }
+

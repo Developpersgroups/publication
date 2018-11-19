@@ -1,0 +1,75 @@
+<html xmlns="http://www.w3.org/1999/xhtml" dir="rtl" lang="ar" >
+   <head>
+      <style>
+         th { background-color:#63585C; color:#FFFFFF;text-align: center; vertical-align: middle; font-family:arial;font-size:11px; border-width: 1px; padding: 2px; border-style: solid; border-color: #63585C;}
+         td { text-align: center; vertical-align: middle; font-family:arial; font-size:10px; border-width: 1px; padding: 2px; border-style: solid; border-color: #63585C;}
+         table { width:100%; border-width: 1px; border-spacing: 0px; border-style: solid; border-color: #63585C; border-collapse: separate; background-color: rgb(219, 219, 219); }
+      </style>
+      <meta http-equiv="content-type" content="text/html; charset=UTF-8" >
+   </head>
+   <body>
+      <img src="{{ chemin }}/{{  asset('images/top-logo.png') }}" border="0" 
+         alt="Faculté des Lettres et des Sciences Humaines de Rabat"
+         width="200" 
+         height="46" style="padding-bottom: 30px ;"/>  
+      <span style="float: right ;"></span>
+       <table width="100%">
+            <thead>
+               <tr>
+                  <th>N° commande</th>
+                  <th>Date de commande</th>
+                  <th>Réduction</th>
+                  <th>Email du client</th>
+                  <th>Profession</th>
+                  <th>Nombre d'ouvrage</th>
+                  {% if is_granted('ROLE_SUPER_ADMIN') %}
+                  <th>Vendeur</th>
+                  {% endif %}    
+               </tr>
+            </thead>
+            <tbody>
+               {% if is_granted('ROLE_SUPER_ADMIN') %}
+               {% for entity in entities|reverse %}
+               {% for entity1 in entity.detailcomande %}
+               {% if  entity1.ouvrage.id==id %}
+               <tr>
+                  <td>{{ entity.id }}</td>
+                  <td>{{ entity.datecommande|date('Y-m-d') }}</td>
+                                        {% if entity.reduction==100 %}
+                                        <td>don</td>
+                                        {% else %}
+                                        <td>{{ entity.reduction }}%</td>
+                                        {% endif %}
+                                        
+                  <td>{{ entity.uti.email }}</td>
+                  <td>{{ entity.uti.typeutilisateur }}</td>
+                  <td>{{ entity.detailcomande|length }}</td>
+                  <td>{{ entity.user }}</td>
+               </tr>
+               {% endif %}
+               {% endfor %}
+               {% endfor %}
+               {% else %}
+               {% for entity in entities %}
+               {% for entity1 in entity.detailcomande %}
+               {% if  entity1.ouvrage.id==id %}
+               <tr>
+                  <td>{{ entity.id }}</td>
+                  <td>{{ entity.datecommande|date('Y-m-d') }}</td>
+                                         {% if entity.reduction==100 %}
+                                        <td>don</td>
+                                        {% else %}
+                                        <td>{{ entity.reduction }}%</td>
+                                        {% endif %}
+                  <td>{{ entity.uti.email }}</td>
+                  <td>{{ entity.uti.typeutilisateur }}</td>
+                  <td>{{ entity1|length }}</td>
+               </tr>
+               {% endif %}
+               {% endfor %}
+               {% endfor %}
+               {% endif %}
+            </tbody>
+         </table>
+   </body>
+</html>

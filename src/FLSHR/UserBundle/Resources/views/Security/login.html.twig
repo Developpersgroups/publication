@@ -1,0 +1,42 @@
+{% extends "FLSHRUserBundle::layout.html.twig" %}
+{% block title %}FLSHR Gestion des publications {% endblock %}
+{% block sidebar %} {% endblock %}
+{% block connection %} {% endblock %}
+{% block wrapper%}{% endblock %}
+{% block stylesheets %} 
+<link href="{{ asset('css/main.css') }}" rel="stylesheet" type="text/css" /> 
+<link rel="stylesheet" type="text/css" href="{{ asset('css/login.css') }}" />
+{% endblock %}
+{% block body %}
+{% block fos_user_content %}  
+                <div id="login">
+			<section class="main" style="padding-top:120px;">
+				<form class="form-1" method="post" action="{{ path("fos_user_security_check") }}">
+					 <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                                        <p class="field">
+                                            <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" placeholder="login" />
+						<i class="icon-user icon-large"></i>
+					</p>
+					<p class="field">
+                                            <input type="password" id="password" name="_password" required="required" placeholder="mot de passe"/>
+							<i class="icon-lock icon-large"></i>
+					</p>
+					<p class="submit">
+                                            <button type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" style="padding-top:4px;" >
+                                                <i class="icon-arrow-right icon-large"></i></button>
+					</p>
+          <div class="remember-forgot">
+          <label class="remember">
+                <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+                <span>Se souvenir de moi</span>
+                {% if error %}
+                <div> Login ou mot de passe incorrect </div>
+                {% endif %}
+          </label>
+        </div>
+				</form>
+			</section>
+                    </div>
+
+{% endblock fos_user_content %}
+{% endblock %}

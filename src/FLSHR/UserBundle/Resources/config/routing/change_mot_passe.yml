@@ -1,0 +1,6 @@
+fos_user_change_password:
+    pattern:  /change-password
+    defaults: { _controller: "FOSUserBundle:ChangePassword:changePassword" }
+    requirements: 
+              _method:  GET|POST
+       

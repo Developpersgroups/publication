@@ -1,0 +1,167 @@
+{% extends 'GestionPublicationBundle::gestionPublication/base.html.twig' %}
+{% block title %}FLSHR Gestion des publications | Panier {% endblock %} 
+{% block content %}
+<div id="content" class="clearfix">
+<div class="contentwrapper">
+   <!--Content wrapper-->
+   <div class="heading">
+           <div class="cmd">
+                                    {% set prixTotal=0 %}
+                                    {% set produits=0 %}    
+                                    {% for entity in entities %}
+                                    {% set produits=produits + entity.qutestocke %}  
+                                    {% set prixTotal= (prixTotal + (entity.qutestocke * entity.prix))  %} 
+                                    {% endfor %}
+                                    <span>Vous avez<span style="font-weight: bold; font-size: 16px;"> {{ produits }}
+                                    </span> produits dans votre panier Sous total de votre commande :
+                                    <span style="font-weight: bold; font-size: 16px;" id="total-label-top">{{ (prixTotal+(prixTotal*0.2)) }}</span>
+                                    <span style="font-weight: bold; font-size: 16px;">MAD</span>
+                                 </div>
+   </div>
+   <div class="row-fluid">
+      <p>&nbsp;</p>
+      <div class="box">
+         <div class="title">
+            <h4>
+               <span class="icon16 icomoon-icon-cart"></span>
+               <form class="box-form right" action="">
+                  
+               </form>
+            </h4>
+         </div>
+         <div class="content noPad">
+            <table class="responsive table table-bordered" id="checkAll">
+               <thead>
+                  <tr>
+                     <th>Titre</th>
+                     <th>Auteur</th>
+                     <th>Prix</th>
+                     <th width="10">Quantité</th>
+                     <th>Actions</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  {% for entity in entities %}
+                  <tr>
+                     <td>{{ entity.titre }}</td>
+                     <td>{{ entity.auteur }}</td>
+                     <td>{{ entity.prix }} dhs</td>
+                     <td style="width: 60px;">
+                        {{ entity.qutestocke }} 
+                     </td>
+                    
+                     <td>
+                        <div class="controls center">
+                           <a href="{{ path('ouvrage_supprimerProduit' , {'id':entity.id} )}}" title="Remove task" class="tip"><span class="icon12 icomoon-icon-remove"></span></a>
+                        </div>
+                     </td>
+                  </tr>
+                  {% endfor %}
+               </tbody>
+            </table>
+         </div>
+      </div>
+      <div>
+         <form action="{{ path('gestion_publication_add_commande') }}" method="post" {{ form_enctype(form) }}>
+            <div align="right" style="padding-bottom:20px;">
+               <a href="{{ path('gestion_publication_liste_ouvrage_accueil') }}" class="btn btn-primary">
+               <i class="icon-white icon-plus">
+               </i> Mettre à jour le panier</a>
+            </div>
+            <div>
+               <div class="box " style="float:left;width:58%;">
+                  <div class="title">
+                     <h4>
+                        <span>Informations supplémentaires</span>
+                     </h4>
+                     <a href="#" class="minimize">Minimize</a>
+                  </div>
+                  <div class="content">
+                     <div class="form-row row-fluid">
+                        <div class="span12">
+                           <div class="row-fluid">
+                              {{ form_label(form.uti.typeutilisateur , form.uti.typeutilisateur , 
+                              { 'label_attr': {'class': 'form-label span3'} }) }} 
+                              {{ form_widget(form.uti.typeutilisateur ,{ 'attr': { 'class':'span7'}} )}}
+                              {{ form_errors(form.uti.typeutilisateur ,{ 'attr': { 'class':'span7'}} )}}
+                           </div>
+                        </div>
+                     </div>
+                     <div class="form-row row-fluid">
+                        <div class="span12">
+                           <div class="row-fluid">
+                              {{ form_label(form.reduction , form.reduction , 
+                              { 'label_attr': {'class': 'form-label span3'} }) }} 
+                              {{ form_widget(form.reduction ,{ 'attr': { 'class':'span7'}} )}}
+                              {{ form_errors(form.reduction ,{ 'attr': { 'class':'span7'}} )}}
+                           </div>
+                        </div>
+                     </div>
+                     <div class="form-row row-fluid">
+                        <div class="span12">
+                           <div class="row-fluid">
+                              {{ form_label(form.uti.email , form.uti.email , 
+                              { 'label_attr': {'class': 'form-label span3'} }) }} 
+                              {{ form_widget(form.uti.email ,{ 'attr': { 'class':'span7'}} )}} 
+                              {{ form_errors(form.uti.email ,{ 'attr': { 'class':'span7'}} )}}
+                           </div>
+                        </div>
+                     </div>
+                     <div class="form-row row-fluid">
+                        <div class="span12">
+                           <div class="row-fluid">
+                              {{ form_label(form.uti.cin , form.uti.cin , 
+                              { 'label_attr': {'class': 'form-label span3'} }) }} 
+                              {{ form_widget(form.uti.cin ,{ 'attr': { 'class':'span7'}} )}} 
+                              {{ form_errors(form.uti.cin ,{ 'attr': { 'class':'span7'}} )}}
+                           </div>
+                        </div>
+                     </div>
+                     <div class="form-row row-fluid">
+                        <div class="span12">
+                           <div class="row-fluid">
+                              {{ form_label(form.uti.cne , form.uti.cne , 
+                              { 'label_attr': {'class': 'form-label span3'} }) }} 
+                              {{ form_widget(form.uti.cne ,{ 'attr': { 'class':'span7'}} )}}
+                              {{ form_errors(form.uti.cne ,{ 'attr': { 'class':'span7'}} )}}
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+                     {{ form_rest(form) }}
+            </div>
+            <div>
+               <div class="box gradient" style="float:right;width:40%;" >
+                  <div class="title">
+                     <h4>
+                        <span>Détails de commande</span>
+                     </h4>
+                     <a href="#" class="minimize">Minimize</a>
+                  </div>
+                  <div class="content">
+                     <p>Prix HT  :<span style="font-weight: bold; font-size: 20px;"> {{ prixTotal }}</span><span style="font-weight: bold; font-size: 20px;"> MAD</span></p>
+                     <p>Prix TTC :<span style="font-weight: bold; font-size: 20px;" id="ttc-label">{{ prixTotal + (prixTotal * 0.2) }}</span><span style="font-weight: bold; font-size: 20px;"> MAD</span></p>
+                     <p>Prix après réduction :<span style="font-weight: bold; font-size: 20px;" id="reduction-label"> {{ prixTotal + (prixTotal * 0.2) }}</span><span style="font-weight: bold; font-size: 20px;"> MAD</span></p>
+                     <p>Prix total :<span style="font-weight: bold; font-size: 20px;" id="total-label"> {{ prixTotal+(prixTotal * 0.2) }}</span><span style="font-weight: bold; font-size: 20px;"> MAD</span></p>
+                     <div align="center" style="padding-top:10px;">
+                        <a href="{{ path('gestion_publication_annuler_commande') }}" class="btn btn-danger"><i class="icon-white icon-remove"></i> Vider le panier</a>
+                        <button type="submit" class="btn btn-success"><i class="icon-white icon-ok"></i> Valider la commande</button>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <!--end featuredItems-->
+         </form>
+      </div>
+      <!--end span12-->
+      <!--end row-->
+   </div>
+   <!-- End .row-fluid -->
+   <!--End page -->
+</div>
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+<script type="text/javascript" src="{{ asset('js/jquery.shuffleLetters.js') }}"></script>
+{% endblock %}

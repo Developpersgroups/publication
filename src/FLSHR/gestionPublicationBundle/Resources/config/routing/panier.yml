@@ -1,0 +1,25 @@
+#annuler une commande
+gestion_publication_annuler_commande:
+    pattern:  /admin/annuler
+    defaults: { _controller: "GestionPublicationBundle:Panier:annulerCommande" }
+
+#valider une commande
+gestion_publication_valider_Commande:
+    pattern:  /admin/validerCommande
+    defaults: { _controller: "GestionPublicationBundle:Panier:validerCommande" }
+
+#ajouter une commande    
+gestion_publication_add_commande:
+      pattern:  /admin/addcommande
+      defaults: { _controller: GestionPublicationBundle:Panier:Ajoutercommande }
+
+#ajouter un ouvrage au panier
+gestion_publication_add_panier:
+      pattern:  /admin/panier/add/GDFGDF{id}GDF46SFD
+      defaults: { _controller: GestionPublicationBundle:Panier:addPanier }
+
+#supprimer un ouvrage d'une commande     
+ouvrage_supprimerProduit:
+    pattern:  /admin/GDFGDF654{id}GDDF464/supprimer
+    defaults: { _controller: "GestionPublicationBundle:Panier:supprimerProduit" }
+    requirements: { _method: get }      

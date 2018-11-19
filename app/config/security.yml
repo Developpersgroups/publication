@@ -1,0 +1,19 @@
+imports : 
+    - { resource: "@FLSHRUserBundle/Resources/config/security.yml" }
+    
+jms_security_extra:
+    secure_all_services: false
+    expressions: true
+
+security:
+    role_hierarchy:
+        ROLE_ADMIN:       ROLE_USER
+        ROLE_SUPER_ADMIN: ROLE_ADMIN
+
+    access_control:
+        - { path: ^/connexion$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/inscription, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin, role: ROLE_ADMIN }
+        - { path: ^/admin/statistiques/, role: ROLE_SUPER_ADMIN }
+        
